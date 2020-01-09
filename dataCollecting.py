@@ -1,4 +1,5 @@
 import pandas as pd
+import unidecode
 import re
 import requests
 import matplotlib
@@ -10,7 +11,7 @@ import ssl
 
 urls = ["https://www.skiresort.info/best-ski-resorts/poland/", "https://www.skiresort.info/best-ski-resorts/austria/", "https://www.skiresort.info/best-ski-resorts/germany/","https://www.skiresort.info/best-ski-resorts/united-kingdom/"]
 
-df = pd.DataFrame()
+
 
 def makeDFWithAreas(url):
     getpage = requests.get(url)
@@ -21,7 +22,9 @@ def makeDFWithAreas(url):
     df = pd.Series(resort_urls)
     df.to_frame()
     #print(df.at[49])
+    df.columns = ['area']
     df = df.drop(df[df.index > 49].index)
+    df = df.str.lower()
     df = df.str.replace('\d+.\s', '')
     df = df.str.replace('\s$', '')
     df = df.str.replace('  ', '')
@@ -30,19 +33,33 @@ def makeDFWithAreas(url):
     df = df.str.replace('–-', '')
     df = df.str.replace('(', '')
     df = df.str.replace(')', '')
+    df = df.str.replace('.', '')
+    df = df.str.replace('ö', 'o')
+    df = df.str.replace('ä', 'a')
+    df = df.str.replace('ü', 'u')
+    df = df.str.replace('ä', 'a')
+    df = df.str.replace('ß', 's')
+    df = df.str.replace('ą', 'a')
+    df = df.str.replace('ę', 'e')
+    df = df.str.replace('ć', 'c')
+    df = df.str.replace('ł', 'l')
+    df = df.str.replace('ń', 'n')
+    df = df.str.replace('ó', 'o')
+    df = df.str.replace('ś', 's')
+    df = df.str.replace('ż', 'z')
+    df = df.str.replace('ź', 'z')
     return df
 
 
-print(type(makeDFWithAreas(urls[1])))
-
-for site in urls:
-    print(site)
-    df.append(makeDFWithAreas(site), ignore_index= True)
-
-print(df)
-
+def appendingAreasNames(sites):
+    df = pd.DataFrame()
+    for site in sites:
+        df = pd.concat([df , makeDFWithAreas(site)])
+    df = df.rename(columns={0: 'areas' })
+    return df
 
 
+dfOfAreas = appendingAreasNames(urls)
 
 
 
