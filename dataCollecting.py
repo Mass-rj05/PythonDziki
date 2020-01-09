@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import ssl
 
 
-urls = ["https://www.skiresort.info/best-ski-resorts/poland/", "https://www.skiresort.info/best-ski-resorts/austria/", "https://www.skiresort.info/best-ski-resorts/germany/","https://www.skiresort.info/best-ski-resorts/united-kingdom/"]
+urls = ["https://www.skiresort.info/best-ski-resorts/poland/", "https://www.skiresort.info/best-ski-resorts/austria/", "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/united-kingdom/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 
 class makeDfOfAreas:
     def __init__(self, urls):
@@ -50,6 +50,7 @@ class makeDfOfAreas:
         df = df.str.replace('ś', 's')
         df = df.str.replace('ż', 'z')
         df = df.str.replace('ź', 'z')
+
         return df
 
     def appendingAreasNames(self):
@@ -63,10 +64,6 @@ class makeDfOfAreas:
 dfOfAreas = makeDfOfAreas(urls)
 
 print(dfOfAreas.appendingAreasNames())
-
-
-
-
 
 
 
