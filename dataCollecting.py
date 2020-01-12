@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import ssl
 
 
-urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/united-kingdom/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
+urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/united-kingdom/", "https://www.skiresort.info/best-ski-resorts/austria/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 
 class makeDfOfAreas:
     def __init__(self, urls):
@@ -120,11 +120,17 @@ class makeData:
             lista = soup.findAll('div', {'class': 'description'})
             lista = [d.text for d in lista]
             for y in range(0, len(lista)):
-                lista[y] = lista[y].split()[0]
-            data.append(lista)
-
+                if len(lista)>3 :
+                    continue
+                    #brokenlinks=list[x]
+                else:
+                    lista[y] = lista[y].split()[0]
+            if len(lista)<4:
+                data.append(lista)
+        #print(data)
+        #print(lista)
+        #print(brokenlinks)
         return data
-        print(data)
-        print(lista)
+
 download = makeData(areasSizeList)
-print(download.downloadData(areasSizeList))
+print(len(download.downloadData(areasSizeList)))
