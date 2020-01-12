@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import ssl
 
 
-urls = ["https://www.skiresort.info/best-ski-resorts/poland/", "https://www.skiresort.info/best-ski-resorts/austria/", "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/united-kingdom/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
+urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/united-kingdom/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 
 class makeDfOfAreas:
     def __init__(self, urls):
@@ -36,6 +36,7 @@ class makeDfOfAreas:
         df = df.str.replace('(', '')
         df = df.str.replace(')', '')
         df = df.str.replace('.', '')
+        df = df.str.replace('’', '')
         df = df.str.replace('ö', 'o')
         df = df.str.replace('ä', 'a')
         df = df.str.replace('ü', 'u')
@@ -101,6 +102,29 @@ areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasSlopeOfferingList = lists.makeAreasSlopeOfferingList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
-print(areasSizeList)
-print(areasSlopeOfferingList)
-print(areasLiftList)
+#print(areasSizeList)
+#print(areasSlopeOfferingList)
+# print(areasLiftList)
+
+class makeData:
+    def __init__(self, list):
+        self.list =list
+
+
+    def downloadData(self, list):
+        global data
+        data = []
+        for x in range(0, len(list)):
+            url = requests.get(list[x])
+            soup = BeautifulSoup(url.text, 'html.parser')
+            lista = soup.findAll('div', {'class': 'description'})
+            lista = [d.text for d in lista]
+            for y in range(0, len(lista)):
+                lista[y] = lista[y].split()[0]
+            data.append(lista)
+
+        return data
+        print(data)
+        print(lista)
+download = makeData(areasSizeList)
+print(download.downloadData(areasSizeList))
