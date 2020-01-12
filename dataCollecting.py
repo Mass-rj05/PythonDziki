@@ -24,7 +24,7 @@ class makeDfOfAreas:
         df = pd.Series(resort_urls)
         df.to_frame()
         #print(df.at[49])
-        df.columns = ['area']
+        #df.columns = ['area']
         df = df.drop(df[df.index > 49].index)
         df = df.str.lower()
         df = df.str.replace('\d+.\s', '')
@@ -50,7 +50,7 @@ class makeDfOfAreas:
         df = df.str.replace('ś', 's')
         df = df.str.replace('ż', 'z')
         df = df.str.replace('ź', 'z')
-
+        df = df.str.replace(r'(\.*)', '')
         return df
 
     def appendingAreasNames(self):
@@ -63,7 +63,44 @@ class makeDfOfAreas:
 
 dfOfAreas = makeDfOfAreas(urls)
 
-print(dfOfAreas.appendingAreasNames())
 
 
 
+class makeUrls:
+    def __init__(self, df):
+        self.df = df
+
+    def makeAreasSizeList(self,df):
+        newList = df['areas'].values.tolist()
+        areasSizeList = []
+        for x in range(0, len(newList)):
+            newList[x] = newList[x].replace('\u200b', '')
+            areasSizeList.append('https://www.skiresort.info/ski-resort/' + newList[x] + '/test-result/size/')
+        return areasSizeList
+
+    def makeAreasSlopeOfferingList(self,df):
+        newList = df['areas'].values.tolist()
+        areasSlopeOfferingList = []
+        for x in range(0, len(newList)):
+            newList[x] = newList[x].replace('\u200b', '')
+            areasSlopeOfferingList.append('https://www.skiresort.info/ski-resort/' + newList[x] + '/test-result/slope-offering/')
+        return areasSlopeOfferingList
+
+    def makeAreasLiftList(self,df):
+        newList = df['areas'].values.tolist()
+        areasLiftList = []
+        for x in range(0, len(newList)):
+            newList[x] = newList[x].replace('\u200b', '')
+            areasLiftList.append('https://www.skiresort.info/ski-resort/' + newList[x] + '/test-result/lifts-cable-cars/')
+        return areasLiftList
+
+
+lists = makeUrls(dfOfAreas.appendingAreasNames())
+
+areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
+areasSlopeOfferingList = lists.makeAreasSlopeOfferingList(dfOfAreas.appendingAreasNames())
+areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
+
+print(areasSizeList)
+print(areasSlopeOfferingList)
+print(areasLiftList)
