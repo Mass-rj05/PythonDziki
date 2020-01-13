@@ -1,10 +1,11 @@
 import pandas as pd
-import unidecode
+#import unidecode
 import re
 import requests
+import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-import soup as soup
+#import soup as soup
 from bs4 import BeautifulSoup
 import ssl
 
@@ -188,10 +189,18 @@ listOfValidateNumbers = validateLinks(areasSizeList)
 
 download = makeData(areasSizeList, listOfValidateNumbers)
 
-print(download.downloadData(areasSizeList, listOfValidateNumbers))
-print(download.downloadData1(areasLiftList, listOfValidateNumbers))
+#print(download.downloadData(areasSizeList, listOfValidateNumbers))
+#print(download.downloadData1(areasLiftList, listOfValidateNumbers))
 
+first = download.downloadData(areasSizeList, listOfValidateNumbers)
 
+sec = download.downloadData1(areasLiftList, listOfValidateNumbers)
+#print(sec)
 
-#print(len(download.downloadData(areasSizeList)))
-#print(download.downloadData1(areasSizeList))
+fTable = pd.DataFrame(np.array(first), columns=['Długość tras', 'różnica wzniesień', 'ilość wyciągów'])
+sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid'])
+#print(fTable)
+#print(sTable)
+
+fTable = fTable.join(sTable)
+print(fTable)
