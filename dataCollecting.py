@@ -99,11 +99,9 @@ class makeUrls:
 lists = makeUrls(dfOfAreas.appendingAreasNames())
 
 areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
-areasSlopeOfferingList = lists.makeAreasSlopeOfferingList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
 print(areasSizeList)
-print(areasSlopeOfferingList)
 print(areasLiftList)
 
 class makeData:
@@ -114,6 +112,9 @@ class makeData:
     def downloadData(self, list):
         global data
         data = []
+        global listOfAreasTemp
+        listOfAreasTemp = []
+
         for x in range(0, len(list)):
             url = requests.get(list[x])
             soup = BeautifulSoup(url.text, 'html.parser')
@@ -127,6 +128,7 @@ class makeData:
                     lista[y] = lista[y].split()[0]
             if len(lista)<4:
                 data.append(lista)
+                listOfAreasTemp.append(lista)
         #print(data)
         #print(lista)
         #print(brokenlinks)
@@ -135,24 +137,29 @@ class makeData:
     def downloadData1(self, list):
         global data
         data = []
+        listOfLiftType = ['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid']
         for x in range(0, len(list)):
             url = requests.get(list[x])
             soup = BeautifulSoup(url.text, 'html.parser')
             lista = soup.findAll('div', {'class': 'lift-head'})
             lista = [i.text for i in lista]
+            listaTemp = [0, 0, 0, 0, 0, 0]
             for y in range(0, len(lista)):
-                if len(lista)>6 :
+                if len(lista)>7 :
                     continue
                     #brokenlinks=list[x]
                 else:
-                    lista[y] = lista[y].split()[0]
-            if len(lista)<6 and len(lista)!= 0:
-                data.append(lista)
+                    for x in range(0, len(lista)):
+                        for i in range(0, len(listOfLiftType)):
+                            if lista[x].split()[1] == listOfLiftType[i]:
+                                listaTemp[i] = lista[x].split()[0]
+            if len(lista)<7 and len(lista)!= 0:
+                data.append(listaTemp)
         #print(data)
         #print(lista)
         #print(brokenlinks)
         return data
 
 download = makeData(areasSizeList)
-print(len(download.downloadData(areasSizeList)))
-print(len(download.downloadData1(areasLiftList)))
+#print(len(download.downloadData(areasSizeList)))
+print(download.downloadData1(areasLiftList))
