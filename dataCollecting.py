@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import ssl
 
 
-urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/united-kingdom/", "https://www.skiresort.info/best-ski-resorts/austria/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
+urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/austria/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 
 class makeDfOfAreas:
     def __init__(self, urls):
@@ -51,6 +51,11 @@ class makeDfOfAreas:
         df = df.str.replace('ś', 's')
         df = df.str.replace('ż', 'z')
         df = df.str.replace('ź', 'z')
+        df = df.str.replace('é', 'e')
+        df = df.str.replace('è', 'e')
+        df = df.str.replace('à', 'a')
+        df = df.str.replace('ù', 'u')
+        df = df.str.replace('-&-', '-')
         df = df.str.replace(r'(\.*)', '')
         return df
 
@@ -104,19 +109,37 @@ areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 print(areasSizeList)
 print(areasLiftList)
 
+
+def validateLinks(list):
+
+    validatedLinksTable = []
+    for x in range(0, len(list)):
+        url = requests.get(list[x])
+        soup = BeautifulSoup(url.text, 'html.parser')
+        lista = soup.findAll('div', {'class': 'description'})
+        lista = [d.text for d in lista]
+        for y in range(0, len(lista)):
+            if len(lista) > 3:
+                continue
+        if len(lista) < 4:
+            validatedLinksTable.append(x)
+    return validatedLinksTable
+
+
 class makeData:
-    def __init__(self, list):
+    def __init__(self, list, validateList):
         self.list =list
+        self.validateList = validateList
 
 
-    def downloadData(self, list):
+    def downloadData(self, list, validateList):
         global data
         data = []
         global listOfAreasTemp
         listOfAreasTemp = []
 
-        for x in range(0, len(list)):
-            url = requests.get(list[x])
+        for x in range(0, len(validateList)):
+            url = requests.get(list[validateList[x]])
             soup = BeautifulSoup(url.text, 'html.parser')
             lista = soup.findAll('div', {'class': 'description'})
             lista = [d.text for d in lista]
@@ -128,18 +151,17 @@ class makeData:
                     lista[y] = lista[y].split()[0]
             if len(lista)<4:
                 data.append(lista)
-                listOfAreasTemp.append(lista)
         #print(data)
         #print(lista)
         #print(brokenlinks)
         return data
 
-    def downloadData1(self, list):
+    def downloadData1(self, list, validateList):
         global data
         data = []
         listOfLiftType = ['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid']
-        for x in range(0, len(list)):
-            url = requests.get(list[x])
+        for x in range(0, len(validateList)):
+            url = requests.get(list[validateList[x]])
             soup = BeautifulSoup(url.text, 'html.parser')
             lista = soup.findAll('div', {'class': 'lift-head'})
             lista = [i.text for i in lista]
@@ -149,10 +171,10 @@ class makeData:
                     continue
                     #brokenlinks=list[x]
                 else:
-                    for x in range(0, len(lista)):
+                    for z in range(0, len(lista)):
                         for i in range(0, len(listOfLiftType)):
-                            if lista[x].split()[1] == listOfLiftType[i]:
-                                listaTemp[i] = lista[x].split()[0]
+                            if lista[z].split()[1] == listOfLiftType[i]:
+                                listaTemp[i] = lista[z].split()[0]
             if len(lista)<7 and len(lista)!= 0:
                 data.append(listaTemp)
         #print(data)
@@ -160,6 +182,16 @@ class makeData:
         #print(brokenlinks)
         return data
 
-download = makeData(areasSizeList)
+
+
+listOfValidateNumbers = validateLinks(areasSizeList)
+
+download = makeData(areasSizeList, listOfValidateNumbers)
+
+print(download.downloadData(areasSizeList, listOfValidateNumbers))
+print(download.downloadData1(areasLiftList, listOfValidateNumbers))
+
+
+
 #print(len(download.downloadData(areasSizeList)))
-print(download.downloadData1(areasLiftList))
+#print(download.downloadData1(areasSizeList))
