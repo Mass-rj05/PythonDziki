@@ -102,9 +102,9 @@ areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasSlopeOfferingList = lists.makeAreasSlopeOfferingList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
-#print(areasSizeList)
-#print(areasSlopeOfferingList)
-# print(areasLiftList)
+print(areasSizeList)
+print(areasSlopeOfferingList)
+print(areasLiftList)
 
 class makeData:
     def __init__(self, list):
@@ -132,5 +132,27 @@ class makeData:
         #print(brokenlinks)
         return data
 
+    def downloadData1(self, list):
+        global data
+        data = []
+        for x in range(0, len(list)):
+            url = requests.get(list[x])
+            soup = BeautifulSoup(url.text, 'html.parser')
+            lista = soup.findAll('div', {'class': 'lift-head'})
+            lista = [i.text for i in lista]
+            for y in range(0, len(lista)):
+                if len(lista)>6 :
+                    continue
+                    #brokenlinks=list[x]
+                else:
+                    lista[y] = lista[y].split()[0]
+            if len(lista)<6 and len(lista)!= 0:
+                data.append(lista)
+        #print(data)
+        #print(lista)
+        #print(brokenlinks)
+        return data
+
 download = makeData(areasSizeList)
 print(len(download.downloadData(areasSizeList)))
+print(len(download.downloadData1(areasLiftList)))
