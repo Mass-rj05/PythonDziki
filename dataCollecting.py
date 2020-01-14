@@ -197,7 +197,7 @@ first = download.downloadData(areasSizeList, listOfValidateNumbers)
 sec = download.downloadData1(areasLiftList, listOfValidateNumbers)
 #print(sec)
 
-fTable = pd.DataFrame(np.array(first), columns=['Długość tras', 'różnica wzniesień', 'ilość wyciągów'])
+fTable = pd.DataFrame(np.array(first), columns=['Routes total', 'Elevation difference', 'Lifts total'])
 sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid'])
 #print(fTable)
 #print(sTable)
