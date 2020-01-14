@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 #import soup as soup
 from bs4 import BeautifulSoup
 import ssl
-
+import csv
 
 urls = ["https://www.skiresort.info/best-ski-resorts/poland/",  "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/austria/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 
@@ -203,4 +203,6 @@ sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift'
 #print(sTable)
 
 fTable = fTable.join(sTable)
+export_csv = fTable.to_csv (r'C:\Users\Mass\Desktop\git\export_dataframe.csv', index = None, header=True)
+
 print(fTable)
