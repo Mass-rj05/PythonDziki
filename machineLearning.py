@@ -3,9 +3,9 @@ import csv
 from pandas import DataFrame
 from sklearn import tree
 #Wczytanie danych z pliku
-df = pd.read_csv (r'C:\Users\Mass\Desktop\\git\export_dataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
+df = pd.read_csv (r'export_dataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
 tempTable =df
-
+print(df)
 #Uogólnienie danych
 orczyki = df['Chairlift']+df['T-bar']+df['Rope']
 wyciagi = df['Aerial']+df['Circulating']+df['Chairlift']
