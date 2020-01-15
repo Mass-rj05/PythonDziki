@@ -2,10 +2,12 @@ import pandas as pd
 import csv
 from pandas import DataFrame
 from sklearn import tree
+from matplotlib import pyplot
+from pandas.plotting import scatter_matrix
 #Wczytanie danych z pliku
 df = pd.read_csv (r'export_dataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
 tempTable =df
-print(df)
+#print(df)
 #Uogólnienie danych
 orczyki = df['Chairlift']+df['T-bar']+df['Rope']
 wyciagi = df['Aerial']+df['Circulating']+df['Chairlift']
@@ -28,6 +30,10 @@ for x in range(lenght):
        # print(tempTable.loc[x, "Routes total"])
     else:
         labels.append(0)
+
+scatter_matrix(df)
+pyplot.show()
+
 
 clf = tree.DecisionTreeClassifier()
 clf.fit(tempTable, labels)
