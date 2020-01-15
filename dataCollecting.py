@@ -69,7 +69,7 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
-
+print(dfOfAreas)
 
 
 
@@ -84,14 +84,6 @@ class makeUrls:
             newList[x] = newList[x].replace('\u200b', '')
             areasSizeList.append('https://www.skiresort.info/ski-resort/' + newList[x] + '/test-result/size/')
         return areasSizeList
-
-    def makeAreasSlopeOfferingList(self,df):
-        newList = df['areas'].values.tolist()
-        areasSlopeOfferingList = []
-        for x in range(0, len(newList)):
-            newList[x] = newList[x].replace('\u200b', '')
-            areasSlopeOfferingList.append('https://www.skiresort.info/ski-resort/' + newList[x] + '/test-result/slope-offering/')
-        return areasSlopeOfferingList
 
     def makeAreasLiftList(self,df):
         newList = df['areas'].values.tolist()
@@ -108,7 +100,7 @@ areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
 print(areasSizeList)
-print(areasLiftList)
+#print(areasLiftList)
 
 
 def validateLinks(list):
@@ -203,6 +195,6 @@ sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift'
 #print(sTable)
 
 fTable = fTable.join(sTable)
-export_csv = fTable.to_csv (r'C:\Users\Mass\Desktop\git\export_dataframe.csv', index = None, header=True)
+export_csv = fTable.to_csv ('exportDataframe.csv', index = None, header=True)
 
-print(fTable)
+#print(fTable)

@@ -25,30 +25,30 @@ from sklearn.svm import SVC
 
 
 #Wczytanie danych z pliku
-df = pd.read_csv (r'export_dataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
+df = pd.read_csv ('exportDataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
 
 print(df.describe())
 
 
-#scatter_matrix(df)
-#pyplot.show()
+scatter_matrix(df)
+pyplot.show()
 #df['Routes total'] = df['Routes total'].values.toint
-df.round(2)
+
 print(df)
 # Split-out validation dataset
 array = df.values
 X = array[:, 1 : 9]
-x = np.around(X, decimals = 0)
-print(x)
-y = array[:,0]
-Y = np.around(y, decimals = 3)
+X = np.around(X, decimals = 0)
+print(X)
+Y = array[:,0]
+Y = np.around(Y, decimals = 3)
 print(Y)
-print(type(y))
+print(type(Y))
 
 
 
 
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
+X_train, X_validation, Y_train, Y_validation = train_test_split(X, Y, test_size=0.20, random_state=1)
 
 models = []
 models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
@@ -60,6 +60,16 @@ models.append(('SVM', SVC(gamma='auto')))
 # evaluate each model in turn
 results = []
 names = []
+
+
+model = SVC(gamma='auto')
+model.fit(X_train, Y_train)
+predictions = model.predict(X_validation)
+# Evaluate predictions
+print(accuracy_score(Y_validation, predictions))
+print(confusion_matrix(Y_validation, predictions))
+print(classification_report(Y_validation, predictions))
+
 '''
 for name, model in models:
     kfold = StratifiedKFold(n_splits=10, random_state=1)

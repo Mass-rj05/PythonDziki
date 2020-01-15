@@ -5,8 +5,13 @@ from sklearn import tree
 from matplotlib import pyplot
 from pandas.plotting import scatter_matrix
 #Wczytanie danych z pliku
-df = pd.read_csv (r'export_dataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
-tempTable =df
+def readCSV(path):
+    df = pd.read_csv(path)   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
+    return df
+
+pathTOCSV = 'exportDataframe.csv'
+df = readCSV(pathTOCSV)
+tempTable = df
 #print(df)
 #Uogólnienie danych
 orczyki = df['Chairlift']+df['T-bar']+df['Rope']
@@ -31,7 +36,7 @@ for x in range(lenght):
     else:
         labels.append(0)
 
-scatter_matrix(df)
+scatter_matrix(tempTable)
 pyplot.show()
 
 
