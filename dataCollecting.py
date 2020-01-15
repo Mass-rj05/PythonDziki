@@ -69,7 +69,7 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
-print(dfOfAreas)
+#print(dfOfAreas)
 
 
 
