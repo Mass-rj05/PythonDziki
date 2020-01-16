@@ -8,6 +8,7 @@ class checkData: #sprawdzanie poprawności wprowadzonych danych,normalizacjam ko
         regex = "\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}"
         if re.search(regex, self.data):
             match = re.search(regex, self.data)
+            #można dać if że jeśli ilość wyciagow łącznie < od wycaig+orczyk+tasma
             return self.check() #jeśli nie jest w takiej samej formie co lista to check()
         else:
             return ("Podałeś błędne dane")
@@ -25,7 +26,10 @@ class checkData: #sprawdzanie poprawności wprowadzonych danych,normalizacjam ko
             return (self.makeTable(final))
 
     def makeTable(self, final): #tworzy tabele
-        table = [final] # for now
+        setting = final.split(' ')
+        table=[]
+        for x in setting:
+            table.append(x)
         return table
 
 
@@ -37,4 +41,4 @@ dane = checkData(input(
     "Enter the slope parameters  \n 'Routes total', 'Elevation difference', 'Lifts total', ['Aerial'], ['Circulating'], ['Chairlift']: \n"))
 
 w= (dane.getData())
-print(w)
+print(w[1])
