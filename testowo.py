@@ -1,4 +1,5 @@
 import pandas as pd
+import requests
 urls = ["https://www.skiresort.info/best-ski-resorts/poland/", "https://www.skiresort.info/best-ski-resorts/germany/", "https://www.skiresort.info/best-ski-resorts/austria/" ,"https://www.skiresort.info/best-ski-resorts/italy/"]
 lenghtURLS = len(urls)
 y=0
@@ -19,3 +20,4 @@ for x in range(lenghtURLS):
 print(countryTable)
 
 #Stworzenie listy krajów na podstawie wprowadzonych linków)
+
