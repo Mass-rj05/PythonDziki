@@ -69,7 +69,11 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
+<<<<<<< HEAD
 #print(dfOfAreas)
+=======
+
+>>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
 
 
 
