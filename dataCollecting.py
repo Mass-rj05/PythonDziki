@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 #import soup as soup
 from bs4 import BeautifulSoup
+
 import ssl
 import csv
 
@@ -69,7 +70,8 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
-print(dfOfAreas)
+#print(dfOfAreas)
+
 
 
 
@@ -95,12 +97,13 @@ class makeUrls:
 
 
 lists = makeUrls(dfOfAreas.appendingAreasNames())
-
 areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
-print(areasSizeList)
-#print(areasLiftList)
+
+#print(areasSizeList)
+
+
 
 
 def validateLinks(list):
@@ -184,17 +187,26 @@ download = makeData(areasSizeList, listOfValidateNumbers)
 #print(download.downloadData(areasSizeList, listOfValidateNumbers))
 #print(download.downloadData1(areasLiftList, listOfValidateNumbers))
 
-first = download.downloadData(areasSizeList, listOfValidateNumbers)
+dataOfAreasSize = download.downloadData(areasSizeList, listOfValidateNumbers)
+columsOfAreasSize =['Routes total', 'Elevation difference', 'Lifts total']
+dataOfAresLifts = download.downloadData1(areasLiftList, listOfValidateNumbers)
+columsOAreasLift = ['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid']
 
-sec = download.downloadData1(areasLiftList, listOfValidateNumbers)
-#print(sec)
+print(dataOfAreasSize)
+print(columsOfAreasSize)
+def makeDF(data, columns):
+    return pd.DataFrame(np.array(data), columns = columns)
 
-fTable = pd.DataFrame(np.array(first), columns=['Routes total', 'Elevation difference', 'Lifts total'])
-sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid'])
-#print(fTable)
-#print(sTable)
 
-fTable = fTable.join(sTable)
-export_csv = fTable.to_csv ('exportDataframe.csv', index = None, header=True)
+#print(makeDF(dataOfAreasSize,columsOfAreasSize))
+#print(makeDF(dataOfAresLifts, columsOAreasLift))
 
+
+def export_csv(tab1, tab2):
+    tab1.join(tab2)
+    return tab1.to_csv ('exportDataframe.csv', index = None, header=True)
+
+
+
+export_csv(makeDF(dataOfAreasSize,columsOfAreasSize), makeDF(dataOfAresLifts, columsOAreasLift))
 #print(fTable)

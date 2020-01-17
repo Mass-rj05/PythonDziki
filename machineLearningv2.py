@@ -27,10 +27,12 @@ from sklearn.svm import SVC
 #Wczytanie danych z pliku
 df = pd.read_csv ('exportDataframe.csv')   #read the csv file (put 'r' before the path string to address any special characters in the path, such as '\'). Don't forget to put the file name at the end of the path + ".csv"
 
-print(df.describe())
+#print(df.describe())
 
 
 scatter_matrix(df)
+<<<<<<< HEAD
+<<<<<<< HEAD
 pyplot.show()
 #df['Routes total'] = df['Routes total'].values.toint
 
@@ -38,12 +40,47 @@ print(df)
 # Split-out validation dataset
 array = df.values
 X = array[:, 1 : 9]
+=======
+=======
+
+>>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
+#pyplot.show()
+#df['Routes total'] = df['Routes total'].values.toint
+
+#print(df)
+# Split-out validation dataset
+print(df)
+dfc= df['Routes total'].astype(float)
+print(type(dfc))
+array = dfc.values
+X = array[:,  :1]
+<<<<<<< HEAD
+>>>>>>> 3d85bdab9027784b923f52192dcfefcc75dd9407
+=======
+
+
+
+>>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
 X = np.around(X, decimals = 0)
 print(X)
 Y = array[:,0]
 Y = np.around(Y, decimals = 3)
+<<<<<<< HEAD
+<<<<<<< HEAD
 print(Y)
 print(type(Y))
+=======
+#print(Y)
+#print(type(Y))
+>>>>>>> 3d85bdab9027784b923f52192dcfefcc75dd9407
+=======
+
+#print(Y)
+#print(type(Y))
+=======
+
+
+>>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
 
 
 
@@ -61,6 +98,8 @@ models.append(('SVM', SVC(gamma='auto')))
 results = []
 names = []
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 model = SVC(gamma='auto')
 model.fit(X_train, Y_train)
@@ -81,3 +120,8 @@ for name, model in models:
 pyplot.boxplot(results, labels=names)
 pyplot.title('Algorithm Comparison')
 pyplot.show()'''
+=======
+>>>>>>> 3d85bdab9027784b923f52192dcfefcc75dd9407
+=======
+
+>>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
