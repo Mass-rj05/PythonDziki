@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 #import soup as soup
 from bs4 import BeautifulSoup
+
 import ssl
 import csv
 
@@ -69,11 +70,8 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
-<<<<<<< HEAD
 #print(dfOfAreas)
-=======
 
->>>>>>> 31722a7ace7ae989e9992d7744d06fcdde950d32
 
 
 
@@ -102,12 +100,10 @@ lists = makeUrls(dfOfAreas.appendingAreasNames())
 areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
-<<<<<<< HEAD
+
 #print(areasSizeList)
-=======
-print(areasSizeList)
->>>>>>> 3d85bdab9027784b923f52192dcfefcc75dd9407
-#print(areasLiftList)
+
+
 
 
 def validateLinks(list):
@@ -205,14 +201,12 @@ def makeDF(data, columns):
 #print(makeDF(dataOfAreasSize,columsOfAreasSize))
 #print(makeDF(dataOfAresLifts, columsOAreasLift))
 
-<<<<<<< HEAD
+
 def export_csv(tab1, tab2):
     tab1.join(tab2)
     return tab1.to_csv ('exportDataframe.csv', index = None, header=True)
-=======
-fTable = fTable.join(sTable)
-export_csv = fTable.to_csv ('exportDataframe.csv', index = None, header=True)
->>>>>>> 3d85bdab9027784b923f52192dcfefcc75dd9407
+
+
 
 export_csv(makeDF(dataOfAreasSize,columsOfAreasSize), makeDF(dataOfAresLifts, columsOAreasLift))
 #print(fTable)
