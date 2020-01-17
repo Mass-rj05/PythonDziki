@@ -8,7 +8,6 @@ class checkData: #sprawdzanie poprawności wprowadzonych danych,normalizacjam ko
         regex = "\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}[\s,-\.]\d{2,5}"
         if re.search(regex, self.data):
             match = re.search(regex, self.data)
-            #można dać if że jeśli ilość wyciagow łącznie < od wycaig+orczyk+tasma
             return self.check() #jeśli nie jest w takiej samej formie co lista to check()
         else:
             return ("Podałeś błędne dane")
@@ -30,15 +29,37 @@ class checkData: #sprawdzanie poprawności wprowadzonych danych,normalizacjam ko
         table=[]
         for x in setting:
             table.append(x)
-        return table
+            #Zamiana na inta
+        for i in range(0, len(table)):
+            table[i] = int(table[i])
+        if(table[2] == (table[3]+table[4]+table[5])):
+            return table
+        else:
+            return ("Podałeś błędne dane")
 
+class InsertDataToCheck:
+    def __init__(self, count):
+        self.count = int(count)
 
-# [,-\.\s]\d[1-5][,-\.\s]\d[1-5][,-\.\s]\d[1-5][,-\.\s]\d[1-5]
+    def doit(self):
+        yourData = []
+        count = self.count
+        print(count)
+        if (count<2):
+            yourData.append(checkData(input("Enter the slope parameters  \n 'Routes total', 'Elevation difference', 'Lifts total', ['Aerial'], ['Circulating'], ['Chairlift']: \n")))
+            print('iam here')
+            return (yourData)
+        elif(count>0):
+            for x in range(count):
+                yourData.append(checkData(input(
+                    "Enter the slope parameters  \n 'Routes total', 'Elevation difference', 'Lifts total', ['Aerial'], ['Circulating'], ['Chairlift']: \n")))
+                print('iam here now')
+            return(yourData)
 
-# print(download.downloadData(areasSizeList, listOfValidateNumbers))
+ilosc = InsertDataToCheck(5)
+finish = ilosc.doit()
+#dane = checkData(input(
+  #  "Enter the slope parameters  \n 'Routes total', 'Elevation difference', 'Lifts total', ['Aerial'], ['Circulating'], ['Chairlift']: \n"))
 
-dane = checkData(input(
-    "Enter the slope parameters  \n 'Routes total', 'Elevation difference', 'Lifts total', ['Aerial'], ['Circulating'], ['Chairlift']: \n"))
-
-w= (dane.getData())
-print(w[1])
+#w= (dane.getData())
+#print(w)

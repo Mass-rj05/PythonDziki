@@ -5,6 +5,22 @@ lenghtURLS = len(urls)
 y=0
 countryTable=[]
 
+data='pupka-dupka.fitek'
+dict = ['.',' ','-']
+for x in range(len(dict)):
+   final = data.replace(dict[x], ',')
+print(final)
+
+
+
+
+
+
+
+
+
+
+
 for x in range(lenghtURLS):
     first = urls[x].split('https://www.skiresort.info/best-ski-resorts/')
     select = str(first[1])
