@@ -95,7 +95,6 @@ class makeUrls:
 
 
 lists = makeUrls(dfOfAreas.appendingAreasNames())
-
 areasSizeList = lists.makeAreasSizeList(dfOfAreas.appendingAreasNames())
 areasLiftList = lists.makeAreasLiftList(dfOfAreas.appendingAreasNames())
 
@@ -189,6 +188,8 @@ columsOfAreasSize =['Routes total', 'Elevation difference', 'Lifts total']
 dataOfAresLifts = download.downloadData1(areasLiftList, listOfValidateNumbers)
 columsOAreasLift = ['Aerial', 'Circulating', 'Chairlift', 'T-bar', 'Rope', 'Sunkid']
 
+print(dataOfAreasSize)
+print(columsOfAreasSize)
 def makeDF(data, columns):
     return pd.DataFrame(np.array(data), columns = columns)
 
