@@ -31,6 +31,7 @@ df = pd.read_csv ('exportDataframe.csv')   #read the csv file (put 'r' before th
 
 
 scatter_matrix(df)
+
 #pyplot.show()
 #df['Routes total'] = df['Routes total'].values.toint
 
@@ -41,12 +42,19 @@ dfc= df['Routes total'].astype(float)
 print(type(dfc))
 array = dfc.values
 X = array[:,  :1]
+
+
+
 X = np.around(X, decimals = 0)
 print(X)
 Y = array[:,0]
 Y = np.around(Y, decimals = 3)
+
 #print(Y)
 #print(type(Y))
+=======
+
+
 
 
 
@@ -63,4 +71,5 @@ models.append(('SVM', SVC(gamma='auto')))
 # evaluate each model in turn
 results = []
 names = []
+
 

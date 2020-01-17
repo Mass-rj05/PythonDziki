@@ -69,7 +69,7 @@ class makeDfOfAreas:
 
 
 dfOfAreas = makeDfOfAreas(urls)
-#print(dfOfAreas)
+
 
 
 
@@ -197,4 +197,4 @@ sTable=pd.DataFrame(np.array(sec), columns=['Aerial', 'Circulating', 'Chairlift'
 fTable = fTable.join(sTable)
 export_csv = fTable.to_csv ('exportDataframe.csv', index = None, header=True)
 
-print(fTable)
+#print(fTable)

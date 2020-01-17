@@ -39,7 +39,12 @@ for x in range(lenght):
         labels.append(0)
 
 scatter_matrix(tempTable)
+
 #pyplot.show()
+
+
+
+
 
 clf = tree.DecisionTreeClassifier()
 clf.fit(tempTable, labels)
